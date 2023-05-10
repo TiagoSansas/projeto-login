@@ -34,4 +34,17 @@ public class PessoaService {
 		return new PessoaDTO(entity);
 	}
 	
+	@Transactional
+	public PessoaDTO insert(PessoaDTO dto) {
+		
+		Pessoa entity = new Pessoa();
+		copyDtoToEntity(dto, entity);
+		entity = repository.save(entity);
+		return new PessoaDTO(entity);
+		
+	}
+	
+	public void copyDtoToEntity(PessoaDTO dto,Pessoa entity) {
+		entity.setName(dto.getName());
+	}
 }
