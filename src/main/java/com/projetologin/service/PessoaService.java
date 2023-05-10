@@ -50,6 +50,11 @@ public class PessoaService {
 		return new PessoaDTO(entity);
 
 	}
+	
+	@Transactional
+	 public void delete(Long id) {
+		repository.deleteById(id);
+	}
 
 	public void copyDtoToEntity(PessoaDTO dto, Pessoa entity) {
 		entity.setName(dto.getName());
