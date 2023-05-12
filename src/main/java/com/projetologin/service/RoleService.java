@@ -10,6 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.projetologin.dto.RoleDTO;
 import com.projetologin.entites.Role;
 import com.projetologin.repositorys.RoleRepository;
+import com.projetologin.service.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class RoleService {
@@ -29,5 +32,16 @@ public class RoleService {
 		entity.setAuthority(dto.getAuthority());
 		entity = roleRepository.save(entity);
 		return new RoleDTO(entity);
+	}
+	@Transactional
+	public RoleDTO update(Long id, RoleDTO dto) {
+		try {
+			Role entity = roleRepository.getReferenceById(id);
+			entity.setAuthority(dto.getAuthority());
+			entity = roleRepository.save(entity);
+			return new RoleDTO(entity);		
+		}catch(EntityNotFoundException e){
+			throw new ResourceNotFoundException("Id not found" + id);
+		}
 	}
 }
