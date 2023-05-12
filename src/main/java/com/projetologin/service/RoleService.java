@@ -22,4 +22,12 @@ public class RoleService {
 		List<Role> roleList = roleRepository.findAll();
 		return roleList.stream().map(role -> new RoleDTO(role)).collect(Collectors.toList());
 	}
+	
+	@Transactional
+	public RoleDTO insert(RoleDTO dto) {
+		Role entity = new Role();
+		entity.setAuthority(dto.getAuthority());
+		entity = roleRepository.save(entity);
+		return new RoleDTO(entity);
+	}
 }
