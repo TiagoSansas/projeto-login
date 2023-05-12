@@ -1,7 +1,6 @@
 package com.projetologin.dto;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import com.projetologin.entites.Role;
 

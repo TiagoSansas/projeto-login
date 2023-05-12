@@ -13,13 +13,13 @@ import com.projetologin.repositorys.RoleRepository;
 
 @Service
 public class RoleService {
-	
+
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Transactional(readOnly = true)
-	public List <RoleDTO> findAll() {
-		List<Role> list = roleRepository.findAll();
-		return list.stream().map(x->new RoleDTO(x)).collect(Collectors.toList());
+	public List<RoleDTO> findAll() {
+		List<Role> roleList = roleRepository.findAll();
+		return roleList.stream().map(role -> new RoleDTO(role)).collect(Collectors.toList());
 	}
 }
