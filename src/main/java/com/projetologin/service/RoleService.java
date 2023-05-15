@@ -44,4 +44,9 @@ public class RoleService {
 			throw new ResourceNotFoundException("Id not found" + id);
 		}
 	}
+	
+	@Transactional
+	public void delete(Long id) {
+		
+	}
 }

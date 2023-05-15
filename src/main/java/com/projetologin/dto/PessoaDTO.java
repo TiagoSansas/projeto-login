@@ -1,6 +1,8 @@
 package com.projetologin.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.projetologin.entites.Pessoa;
 
@@ -10,7 +12,8 @@ public class PessoaDTO implements Serializable {
 	
 	private Long id;
 	private String name;
-	
+
+	Set<RoleDTO> roles = new HashSet<>();
 	public PessoaDTO() {}
 
 	
@@ -22,6 +25,7 @@ public class PessoaDTO implements Serializable {
 	public PessoaDTO(Pessoa entity) {
 		id = entity.getId();
 		name = entity.getName();
+		entity.getRoles().forEach(role->this.roles.add(new RoleDTO(role)));
 	}
 
 	public Long getId() {
@@ -39,6 +43,13 @@ public class PessoaDTO implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
+	public Set<RoleDTO> getRoles() {
+		return roles;
+	}
+	
+	
 	
 	
 	

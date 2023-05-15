@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.projetologin.dto.PessoaDTO;
+import com.projetologin.dto.RoleDTO;
 import com.projetologin.entites.Pessoa;
+import com.projetologin.entites.Role;
 import com.projetologin.repositorys.PessoaRepository;
+import com.projetologin.repositorys.RoleRepository;
 import com.projetologin.service.exceptions.DatabaseException;
 import com.projetologin.service.exceptions.ResourceNotFoundException;
 
@@ -23,6 +26,9 @@ public class PessoaService {
 
 	@Autowired
 	private PessoaRepository repository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
 
 	@Transactional(readOnly = true)
 	public Page<PessoaDTO> findAllPage(PageRequest pageRequest) {
@@ -73,5 +79,11 @@ public class PessoaService {
 
 	public void copyDtoToEntity(PessoaDTO dto, Pessoa entity) {
 		entity.setName(dto.getName());
+		
+		entity.getRoles().clear();
+		for(RoleDTO roleDto: dto.getRoles()) {
+			Role role = roleRepository.getReferenceById(roleDto.getId());
+			entity.getRoles().add(role);
+		}
 	}
 }
